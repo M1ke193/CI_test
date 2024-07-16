@@ -1,5 +1,5 @@
-import './App.css';
-import logo from './mia.jpg';
+import "./App.css";
+import logo from "./mia.jpg";
 
 function App() {
   return (
@@ -14,10 +14,10 @@ function App() {
           href="https://www.ultimateqa.com"
           target="_blank"
           rel="noopener noreferrer"
-          //data-testid="learn-link"
         >
           Learn React
         </a>
+        <p>ADD THIS FOR PUSH TO REPOSITORY</p>
       </header>
     </div>
   );
