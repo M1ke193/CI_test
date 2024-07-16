@@ -1,0 +1,34 @@
+name: CI
+env:
+  SCREENER_API_KEY: ${{ secrets.API_KEY }}
+  SAUCE_USERNAME: ${{ secrets.USERNAME }}
+
+on:
+  push:
+    # Only trigger if files in this path changed
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies 📦
+        # Using npm ci is generally faster than running npm install
+        run: npm ci
+        # to a staging server and then run functional tests
+      - name: Start the app 📤
+        run: npm start & npx wait-on --timeout 60000
+      - name: Run functional UI tests 🖥
+        run: npm run cy:ci
